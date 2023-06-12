@@ -1,22 +1,19 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { collection, addDoc, getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-auth-domain",
-    databaseURL: "your-database-url",
-    projectId: "your-project-id",
-    storageBucket: "your-storage-bucket",
-    messagingSenderId: "your-messaging-sender-id",
-    appId: "your-app-id",
-    measurementId: "your-measurement-id"
+    apiKey: "AIzaSyD0dJrEkEoq9hpWmjFTq4NI1bWwpgPJ40E",
+    authDomain: "simple-database-b15ab.firebaseapp.com",
+    //   databaseURL: "https://simple-database-b15ab-default-rtdb.firebaseio.com",
+    projectId: "simple-database-b15ab",
+    storageBucket: "simple-database-b15ab.appspot.com",
+    messagingSenderId: "374723832608",
+    appId: "1:374723832608:web:1fbfe6a876a1107a1b0545",
+    //   measurementId: "G-0N19V5LFCN"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 async function makeCard(event) {
     event.preventDefault();
@@ -73,19 +70,30 @@ async function makeCard(event) {
     let rollNoDB = document.getElementById('rollNo').value
 
     try {
-        const docRef = await addDoc(collection(db, "users"), {
-            nameDB: nameDB,
-            fatherDB: fatherDB,
-            ageDB: ageDB,
-            rollNoDB: rollNoDB
-        });
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-}
+        let nameDB = document.getElementById('name').value;
+        let fatherDB = document.getElementById('fatherName').value;
+        let ageDB = document.getElementById('age').value;
+        let rollNoDB = document.getElementById('rollNo').value;
 
-document.getElementById('myForm').addEventListener("submit", function(event) {
-    event.preventDefault();
-    makeCard(event);
-});
+        // Creating a data object with the values
+        let data = {
+            name: nameDB,
+            father: fatherDB,
+            age: ageDB,
+            rollNo: rollNoDB
+        };
+
+        // Adding data to Firestore collection
+        await db.collection("users").add(data);
+        console.log("Document added successfully");
+
+        // Clearing input fields after successful submission
+        document.getElementById('name').value = '';
+        document.getElementById('fatherName').value = '';
+        document.getElementById('age').value = '';
+        document.getElementById('rollNo').value = '';
+    } catch (data) {
+        console.error("Error adding document: ", data);
+    }
+
+}
