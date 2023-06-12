@@ -123,15 +123,18 @@ column,
 }
 
 .mainContainer {
-    justify-content: left;
+    justify-content: center;
     /* align-items: flex-start; */
     width: 90%;
     border: 2px dashed #f4685c;
     padding: 1em;
     column-gap: 0.5em;
-    overflow-y: hidden;
-    overflow-x: auto;
+    row-gap: 0.5em;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: none;
+    flex-wrap: wrap;
+    max-height: 51em;
 }
 
 .mainContainer::-moz-scrollbar {
@@ -182,12 +185,13 @@ h6 {
 
 .card {
     border: 2px dashed #083564;
-    width: 20em;
-    min-width: 22em;
+    width: 18em;
+    min-width: 18em;
     height: 12em;
     color: #083564;
     justify-content: right;
     padding: 1em 0em;
+    font-size: 0.9em;
 }
 
 .card h3 {
