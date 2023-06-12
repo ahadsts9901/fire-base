@@ -9,7 +9,7 @@ const firebaseConfig = {
     messagingSenderId: "374723832608",
     appId: "1:374723832608:web:1fbfe6a876a1107a1b0545",
     //   measurementId: "G-0N19V5LFCN"
-};
+}
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -70,30 +70,22 @@ async function makeCard(event) {
     let rollNoDB = document.getElementById('rollNo').value
 
     try {
-        let nameDB = document.getElementById('name').value;
-        let fatherDB = document.getElementById('fatherName').value;
-        let ageDB = document.getElementById('age').value;
-        let rollNoDB = document.getElementById('rollNo').value;
+        const docRef = await db.collection("users").add({
+            nameDB: nameDB,
+            fatherDB: fatherDB,
+            ageDB: ageDB,
+            rollNoDB: rollNoDB
+        });
 
-        // Creating a data object with the values
-        let data = {
-            name: nameDB,
-            father: fatherDB,
-            age: ageDB,
-            rollNo: rollNoDB
-        };
-
-        // Adding data to Firestore collection
-        await db.collection("users").add(data);
-        console.log("Document added successfully");
+        console.log("Document added successfully. ID:", docRef.id);
 
         // Clearing input fields after successful submission
-        document.getElementById('name').value = '';
-        document.getElementById('fatherName').value = '';
-        document.getElementById('age').value = '';
-        document.getElementById('rollNo').value = '';
-    } catch (data) {
-        console.error("Error adding document: ", data);
+        name.value = "";
+        father.value = "";
+        age.value = "";
+        rollNo.value = "";
+    } catch (error) {
+        console.error("Error adding document: ", error);
     }
 
 }
