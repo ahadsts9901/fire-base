@@ -166,14 +166,72 @@ function renderCards() {
                     del.addEventListener("click", delDoc)
                     para.appendChild(del)
 
-                    function delDoc(event) {
-                        event.preventDefault()
-                        console.log("delete function detected")
+                    //delete function
+
+                    async function delDoc(event) {
+                        event.preventDefault();
+                        console.log("delete function detected");
+
+                        const { value: password } = await Swal.fire({
+                            title: 'Enter your password',
+                            input: 'password',
+                            inputLabel: 'Password',
+                            inputPlaceholder: 'Enter your password',
+                            confirmButtonColor: "#0d86ff",
+                            confirmButtonText: "Delete Card",
+                            inputAttributes: {
+                                maxlength: 10,
+                                autocapitalize: 'off',
+                                autocorrect: 'off'
+                            },
+                            showCancelButton: true,
+                            cancelButtonText: 'Cancel'
+                        });
+
+                        if (password) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Wrong Password!',
+                                footer: 'Please Enter Correct Password!',
+                                confirmButtonColor: "#0d86ff",
+                                confirmButtonText: "OK"
+                            });
+                        }
                     }
 
-                    function editDoc(event) {
-                        event.preventDefault()
-                        console.log("edit function detected")
+                    //edit function
+
+                    async function editDoc(event) {
+                        event.preventDefault();
+                        console.log("delete function detected");
+
+                        const { value: password } = await Swal.fire({
+                            title: 'Enter your password',
+                            input: 'password',
+                            inputLabel: 'Password',
+                            inputPlaceholder: 'Enter your password',
+                            confirmButtonColor: "#0d86ff",
+                            confirmButtonText: " Submit",
+                            inputAttributes: {
+                                maxlength: 10,
+                                autocapitalize: 'off',
+                                autocorrect: 'off'
+                            },
+                            showCancelButton: true,
+                            cancelButtonText: 'Cancel'
+                        });
+
+                        if (password) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Wrong Password!',
+                                footer: 'Please Enter Correct Password!',
+                                confirmButtonColor: "#0d86ff",
+                                confirmButtonText: "OK"
+                            });
+                        }
                     }
 
                 });
