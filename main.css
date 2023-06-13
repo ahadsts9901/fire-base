@@ -123,6 +123,8 @@ column,
 }
 
 .mainContainer {
+    /* flex-direction: row-reverse; */
+    flex-wrap: wrap;
     justify-content: center;
     /* align-items: flex-start; */
     width: 90%;
@@ -132,9 +134,8 @@ column,
     row-gap: 0.5em;
     overflow-y: auto;
     overflow-x: hidden;
-    display: none;
-    flex-wrap: wrap;
     max-height: 51em;
+    display: none;
 }
 
 .mainContainer::-moz-scrollbar {
@@ -212,6 +213,21 @@ h6 {
     /* margin-left: 1em; */
     list-style: disc;
     word-spacing: 0.3em;
+}
+
+.blue {
+    color: #083564;
+}
+
+.para-row {
+    width: 100%;
+    padding: 0em 0.3em;
+    /* column-gap: 0em; */
+}
+
+.buttons {
+    color: #083564;
+    font-size: 1.3em;
 }
 
 @media only screen and (max-width: 360px) {
