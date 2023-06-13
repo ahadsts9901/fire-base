@@ -64,27 +64,27 @@ function makeCard(event) {
 
             let timerInterval
             Swal.fire({
-                title: 'Adding...',
-                html: 'I will close in <b></b> milliseconds.',
-                timer: 1000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading()
-                    const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                    }, 100)
-                },
-                willClose: () => {
-                    clearInterval(timerInterval)
-                }
-            }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    // console.log('I was closed by the timer')
-                }
-            })
-            console.log("Document added successfully. ID:", docRef.id);
+                    title: 'Adding...',
+                    html: 'I will close in <b></b> milliseconds.',
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        // console.log('I was closed by the timer')
+                    }
+                })
+                // console.log("Document added successfully. ID:", docRef.id);
             renderCards(); // Call renderCards after adding the document
         })
         .catch(function(error) {
@@ -170,13 +170,13 @@ function renderCards() {
 
                     async function delDoc(event) {
                         event.preventDefault();
-                        console.log("delete function detected");
+                        // console.log("delete function detected");
 
                         const { value: password } = await Swal.fire({
-                            title: 'Enter your password',
+                            title: 'Enter Your Password',
                             input: 'password',
                             inputLabel: 'Password',
-                            inputPlaceholder: 'Enter your password',
+                            inputPlaceholder: 'Enter Your Password',
                             confirmButtonColor: "#0d86ff",
                             confirmButtonText: "Delete Card",
                             inputAttributes: {
@@ -204,13 +204,13 @@ function renderCards() {
 
                     async function editDoc(event) {
                         event.preventDefault();
-                        console.log("delete function detected");
+                        // console.log("edit function detected");
 
                         const { value: password } = await Swal.fire({
-                            title: 'Enter your password',
+                            title: 'Enter Your Password',
                             input: 'password',
                             inputLabel: 'Password',
-                            inputPlaceholder: 'Enter your password',
+                            inputPlaceholder: 'Enter Your Password',
                             confirmButtonColor: "#0d86ff",
                             confirmButtonText: " Submit",
                             inputAttributes: {
