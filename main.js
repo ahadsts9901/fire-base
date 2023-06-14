@@ -206,7 +206,13 @@ function renderCards() {
                                         confirmButtonText: "OK",
                                         confirmButtonColor: "#0d86ff",
                                     });
+
+                                    let docId = doc.id; //document
+
+                                    db.collection("users").doc(docId).delete();
                                 }
+
+                                renderCards();
                             });
                         } else {
                             Swal.fire({
