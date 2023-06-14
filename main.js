@@ -1,27 +1,27 @@
 //sweet alert
 
-let timerInterval
+let timerInterval;
 Swal.fire({
-    title: 'Loading...',
-    html: 'I will close in <b></b> milliseconds.',
+    title: "Loading...",
+    html: "I will close in <b></b> milliseconds.",
     timer: 3000,
     timerProgressBar: true,
     didOpen: () => {
-        Swal.showLoading()
-        const b = Swal.getHtmlContainer().querySelector('b')
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector("b");
         timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft()
-        }, 100)
+            b.textContent = Swal.getTimerLeft();
+        }, 100);
     },
     willClose: () => {
-        clearInterval(timerInterval)
-    }
+        clearInterval(timerInterval);
+    },
 }).then((result) => {
     /* Read more about handling dismissals below */
     if (result.dismiss === Swal.DismissReason.timer) {
         // console.log('I was closed by the timer')
     }
-})
+});
 
 // code start
 
@@ -57,46 +57,45 @@ function makeCard(event) {
             father: fatherDB,
             age: ageDB,
             rollNo: rollNoDB,
-            timestamp: timestamp
+            timestamp: timestamp,
         })
         .then(function(docRef) {
             //sweet alert
 
-            let timerInterval
+            let timerInterval;
             Swal.fire({
-                    title: 'Adding...',
-                    html: 'I will close in <b></b> milliseconds.',
-                    timer: 1000,
-                    timerProgressBar: true,
-                    didOpen: () => {
-                        Swal.showLoading()
-                        const b = Swal.getHtmlContainer().querySelector('b')
-                        timerInterval = setInterval(() => {
-                            b.textContent = Swal.getTimerLeft()
-                        }, 100)
-                    },
-                    willClose: () => {
-                        clearInterval(timerInterval)
-                    }
-                }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        // console.log('I was closed by the timer')
-                    }
-                })
-                // console.log("Document added successfully. ID:", docRef.id);
+                title: "Adding...",
+                html: "I will close in <b></b> milliseconds.",
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const b = Swal.getHtmlContainer().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft();
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                },
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    // console.log('I was closed by the timer')
+                }
+            });
+            // console.log("Document added successfully. ID:", docRef.id);
             renderCards(); // Call renderCards after adding the document
         })
         .catch(function(error) {
             console.error("Error adding document: ", error);
         });
 
-    document.getElementById("name").value = ""
-    document.getElementById("fatherName").value = ""
-    document.getElementById("age").value = ""
-    document.getElementById("rollNo").value = ""
+    document.getElementById("name").value = "";
+    document.getElementById("fatherName").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("rollNo").value = "";
 }
-
 
 function renderCards() {
     var container = document.querySelector(".mainContainer");
@@ -151,89 +150,133 @@ function renderCards() {
                     para.style.marginTop = "0.5em";
                     card.appendChild(para);
 
-                    var description = document.createElement("p")
-                        // description.className += " center"
+                    var description = document.createElement("p");
+                    // description.className += " center"
                     description.innerHTML = "Regards! <i>Muhammad Ahad&copy;</i>";
-                    para.appendChild(description)
+                    para.appendChild(description);
 
-                    var edit = document.createElement("i")
-                    edit.className += " bi bi-pencil-fill buttons"
-                    edit.addEventListener("click", editDoc)
-                    para.appendChild(edit)
+                    var edit = document.createElement("i");
+                    edit.className += " bi bi-pencil-fill buttons";
+                    edit.addEventListener("click", editDoc);
+                    para.appendChild(edit);
 
-                    var del = document.createElement("i")
-                    del.className += " bi bi-trash-fill buttons"
-                    del.addEventListener("click", delDoc)
-                    para.appendChild(del)
-
+                    var del = document.createElement("i");
+                    del.className += " bi bi-trash-fill buttons";
+                    del.addEventListener("click", delDoc);
+                    para.appendChild(del);
+                    // ...................................................................................................................
                     //delete function
 
                     async function delDoc(event) {
                         event.preventDefault();
                         // console.log("delete function detected");
 
-                        const { value: password } = await Swal.fire({
-                            title: 'Enter Your Password',
-                            input: 'password',
-                            inputLabel: 'Password',
-                            inputPlaceholder: 'Enter Your Password',
+                        const { value: max } = await Swal.fire({
+                            title: "Enter Your Password",
+                            input: "password",
+                            inputLabel: "Password",
+                            inputPlaceholder: "Enter Your Password",
                             confirmButtonColor: "#0d86ff",
                             confirmButtonText: "Delete Card",
                             inputAttributes: {
                                 maxlength: 10,
-                                autocapitalize: 'off',
-                                autocorrect: 'off'
+                                autocapitalize: "off",
+                                autocorrect: "off",
                             },
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancel'
+                            // showCancelButton: true,
+                            // cancelButtonText: 'Cancel',
+                            // cancelButtonColor: '#f4685c'
                         });
 
-                        if (password) {
+                        if (max === "123") {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Wrong Password!',
-                                footer: 'Please Enter Correct Password!',
+                                title: "Do You Want To Delete It ?",
+                                showDenyButton: true,
+                                // showCancelButton: true,
+                                confirmButtonText: "Delete",
+                                denyButtonText: `Don't Delete`,
                                 confirmButtonColor: "#0d86ff",
-                                confirmButtonText: "OK"
+                                denyButtonColor: "#f46856",
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Deleted",
+                                        confirmButtonText: "OK",
+                                        confirmButtonColor: "#0d86ff",
+                                    });
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Wrong Password!",
+                                footer: "Please Enter Correct Password!",
+                                confirmButtonColor: "#0d86ff",
+                                confirmButtonText: "OK",
                             });
                         }
                     }
+                    // ......................................................................................................
 
                     //edit function
 
                     async function editDoc(event) {
                         event.preventDefault();
-                        // console.log("edit function detected");
+                        // console.log("delete function detected");
 
-                        const { value: password } = await Swal.fire({
-                            title: 'Enter Your Password',
-                            input: 'password',
-                            inputLabel: 'Password',
-                            inputPlaceholder: 'Enter Your Password',
+                        const { value: max } = await Swal.fire({
+                            title: "Enter Your Password",
+                            input: "password",
+                            inputLabel: "Password",
+                            inputPlaceholder: "Enter Your Password",
                             confirmButtonColor: "#0d86ff",
-                            confirmButtonText: " Submit",
+                            confirmButtonText: "Submit",
                             inputAttributes: {
                                 maxlength: 10,
-                                autocapitalize: 'off',
-                                autocorrect: 'off'
+                                autocapitalize: "off",
+                                autocorrect: "off",
                             },
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancel'
+                            // showCancelButton: true,
+                            // cancelButtonText: 'Cancel',
+                            // cancelButtonColor: '#f4685c'
                         });
 
-                        if (password) {
+                        if (max === "123") {
+                            swal
+                                .fire({
+                                    title: "Multiple inputs",
+                                    html: '<input type="text" id="swal-input1" class="swal2-input" placeholder="Name...">' +
+                                        '<input type="text" id="swal-input1" class="swal2-input" placeholder="Father Name...">' +
+                                        '<input type="number" id="swal-input1" class="swal2-input" placeholder="Age...">' +
+                                        '<input type="number" id="swal-input1" class="swal2-input" placeholder="Roll No...">',
+                                    confirmButtonColor: "#0d86ff",
+                                    confirmButtonText: "Edit",
+                                })
+                                .then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Edited",
+                                            confirmButtonText: "OK",
+                                            confirmButtonColor: "#0d86ff",
+                                        });
+                                    }
+                                });
+                        } else {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Wrong Password!',
-                                footer: 'Please Enter Correct Password!',
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Wrong Password!",
+                                footer: "Please Enter Correct Password!",
                                 confirmButtonColor: "#0d86ff",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "OK",
                             });
                         }
                     }
-
                 });
             }
         })
