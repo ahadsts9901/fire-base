@@ -228,10 +228,8 @@ function renderCards() {
                     // ......................................................................................................
 
                     //edit function
-
                     async function editDoc(event) {
                         event.preventDefault();
-                        // console.log("delete function detected");
 
                         const { value: max } = await Swal.fire({
                             title: "Enter Your Password",
@@ -245,33 +243,54 @@ function renderCards() {
                                 autocapitalize: "off",
                                 autocorrect: "off",
                             },
-                            // showCancelButton: true,
-                            // cancelButtonText: 'Cancel',
-                            // cancelButtonColor: '#f4685c'
                         });
 
                         if (max === "123") {
-                            swal
-                                .fire({
-                                    title: "Multiple inputs",
-                                    html: '<input type="text" id="swal-input1" class="swal2-input" placeholder="Name...">' +
-                                        '<input type="text" id="swal-input1" class="swal2-input" placeholder="Father Name...">' +
-                                        '<input type="number" id="swal-input1" class="swal2-input" placeholder="Age...">' +
-                                        '<input type="number" id="swal-input1" class="swal2-input" placeholder="Roll No...">',
-                                    confirmButtonColor: "#0d86ff",
-                                    confirmButtonText: "Edit",
-                                })
-                                .then((result) => {
-                                    /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {
-                                        Swal.fire({
-                                            icon: "success",
-                                            title: "Edited",
-                                            confirmButtonText: "OK",
-                                            confirmButtonColor: "#0d86ff",
+                            let name = data.name;
+                            let father = data.father;
+                            let age = data.age;
+                            let rollNo = data.rollNo;
+
+                            Swal.fire({
+                                title: "Multiple inputs",
+                                html: `<input value="${name}" type="text" id="swal-input1" class="swal2-input nameSwal" placeholder="Name...">` +
+                                    `<input value="${father}" type="text" id="swal-input1" class="swal2-input fatherSwal" placeholder="Father Name...">` +
+                                    `<input value="${age}" type="number" id="swal-input1" class="swal2-input ageSwal" placeholder="Age...">` +
+                                    `<input value="${rollNo}" type="number" id="swal-input1" class="swal2-input rollNoSwal" placeholder="Roll No...">`,
+                                confirmButtonColor: "#0d86ff",
+                                confirmButtonText: "Edit",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Edited",
+                                        confirmButtonText: "OK",
+                                        confirmButtonColor: "#0d86ff",
+                                    });
+
+                                    let nameSwal = document.getElementById("swal-input1").value;
+                                    let fatherSwal = document.getElementById("swal-input2").value;
+                                    let ageSwal = document.getElementById("swal-input3").value;
+                                    let rollNoSwal = document.getElementById("swal-input4").value;
+
+                                    // Update the Firestore document with the edited values
+                                    let docId = doc.id;
+                                    db.collection("users")
+                                        .doc(docId)
+                                        .update({
+                                            name: nameSwal,
+                                            father: fatherSwal,
+                                            age: ageSwal,
+                                            rollNo: rollNoSwal,
+                                        })
+                                        .then(() => {
+                                            renderCards();
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error updating document: ", error);
                                         });
-                                    }
-                                });
+                                }
+                            });
                         } else {
                             Swal.fire({
                                 icon: "error",
